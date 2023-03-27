@@ -1,0 +1,26 @@
+.nav-link {
+  text-decoration: none !important;
+  color: white !important;
+}
+
+.nav-link-black {
+  text-decoration: none !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+.link-blue {
+  text-decoration: none !important;
+  color: blueviolet !important;
+}
+
+.forgot-link {
+  color: #1976d2 !important;
+}
+
+.footer-link {
+  color: rgba(0, 0, 0, 0.6) !important;
+}
+
+.layout-color {
+  background-color: black !important ;
+}
