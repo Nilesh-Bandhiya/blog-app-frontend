@@ -11,7 +11,6 @@ import { getBlogs } from "../../store/blogs-slice";
 import BlogDialog from "../dialog/BlogDialog";
 import ConfirmationDialog from "../dialog/ConfirmationDialog";
 
-
 const actionHandler = ({ handleDeleteOpen, handleEditOpen, data }) => {
   const editBlogHandler = () => {
     handleEditOpen(data);
@@ -86,12 +85,12 @@ const Blogs = () => {
       if (location.pathname === "/myblogs") {
         const myBlogs = await getMyBlogs(currentUserId);
         setBlogsData(myBlogs);
-      } else {
+      } else {  
         setBlogsData(blogs);
       }
     };
     getAdminBlog();
-  }, [blogs, currentUserId, isAdmin, location.pathname]);
+  }, [blogs, currentUserId, location.pathname]);
 
   const handleEditOpen = (data) => {
     setFormData(data);

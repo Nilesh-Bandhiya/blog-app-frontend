@@ -159,7 +159,7 @@ const Users = () => {
   const filterHandler = (data) => {
     return data?.filter((user) =>
       filterKeys.some((key) =>
-        user[key].toLowerCase().includes(search.toLowerCase())
+        user[key].toString().toLowerCase().includes(search.toLowerCase())
       )
     );
   };
