@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../../store/users-slice";
-import { updateUser } from "../../services/api/usersApi";
+import { changeRole } from "../../services/api/usersApi";
 import {
   DialogContent,
   FormControl,
@@ -20,15 +20,15 @@ const RoleChangeDialog = ({ handleClose, open, data }) => {
   const [role, setRole] = useState("");
 
   useEffect(() => {
-    if (data?.role !== undefined) {
+    if (data?.role) {
       setRole(data?.role);
     }
   }, [data?.role]);
 
   const roleChangeHandler = async (e) => {
     e.preventDefault();
-    let upadtedData = { ...data, role: role };
-    await updateUser(upadtedData, "role");
+    const updatedData = { _id: data?._id, role: role };
+    await changeRole(updatedData);
     dispatch(getUsers());
     handleClose();
   };

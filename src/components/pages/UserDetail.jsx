@@ -14,7 +14,7 @@ import * as yup from "yup";
 import { useDispatch } from "react-redux";
 import { IconButton } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
-import { updateUser } from "../../services/api/usersApi";
+import { updateUserProfile } from "../../services/api/usersApi";
 import { getUsers } from "../../store/users-slice";
 
 const UserDetail = () => {
@@ -61,17 +61,17 @@ const UserDetail = () => {
   });
 
   const updateUserHandler = async (data) => {
-    let newData = {
-      ...user,
-      firstName: data.firstName,
-      lastName: data.lastName,
-      phoneNumber: data.phoneNumber,
-      email: data.email,
-    };
+    // let newData = {
+    //   // ...user,
+    //   firstName: data.firstName,
+    //   lastName: data.lastName,
+    //   phoneNumber: data.phoneNumber,
+    //   email: data.email,
+    // };
 
-    const updatedUser = await updateUser(newData);
+    const updatedUser = await updateUserProfile(data);
     if (updatedUser) {
-      localStorage.setItem("userData", JSON.stringify(newData));
+      localStorage.setItem("userData", JSON.stringify(updatedUser));
       navigate("/");
     }
     dispatch(getUsers());

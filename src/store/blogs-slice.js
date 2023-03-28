@@ -8,9 +8,9 @@ export const getBlogs = createAsyncThunk(
     async () => {
         try {
             const response = await axios.get(APIS.BLOGS_API);
-            return response.data;
+            return response?.data?.data;
         } catch (error) {
-            toast.error(error.message + "Blogs");
+            toast.error(error?.response?.data?.msg);
         }
     })
 

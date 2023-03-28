@@ -5,7 +5,7 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogTitle from "@mui/material/DialogTitle";
 import { useDispatch } from "react-redux";
 import { getUsers } from "../../store/users-slice";
-import { updateUser } from "../../services/api/usersApi";
+import { changeStatus } from "../../services/api/usersApi";
 import {
   DialogContent,
   FormControl,
@@ -20,15 +20,15 @@ const StatusChangeDialog = ({ handleClose, open, data }) => {
   const [active, setActive] = useState(false);
 
   useEffect(() => {
-    if (data?.active !== undefined) {
+    if (data?.active) {
       setActive(data?.active);
     }
   }, [data?.active]);
 
   const statusChangeHandler = async (e) => {
     e.preventDefault();
-    let upadtedData = { ...data, active: active };
-    await updateUser(upadtedData, "status");
+    let upadtedData = { _id: data?._id, active: active };
+    await changeStatus(upadtedData);
     dispatch(getUsers());
     handleClose();
   };

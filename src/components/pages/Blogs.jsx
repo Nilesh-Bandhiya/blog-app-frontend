@@ -49,7 +49,7 @@ const titleLinkHandler = ({ data, isLoggedIn }) => {
   return (
     <>
       {isLoggedIn ? (
-        <Link to={`/${data.id}`} className="link-blue">
+        <Link to={`/${data._id}`} className="link-blue">
           {data.title}
         </Link>
       ) : (
@@ -67,7 +67,7 @@ const Blogs = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   let token = JSON.parse(localStorage.getItem("userData"));
-  let currentUserId = token?.id;
+  let currentUserId = token?._id;
   let isAdmin = token?.role === "admin";
 
   const filterKeys = ["title", "author", "description", "category"];

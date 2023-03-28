@@ -10,7 +10,7 @@ const UserInstance = axios.create({
 
 const AuthUserInstance = axios.create({
   baseURL: APIS.USERS_API,
-  headers: {'Authorization': 'Bearer '+ token}
+  headers: { 'Authorization': 'Bearer ' + token }
 });
 
 export const registerUser = async (user) => {
@@ -31,7 +31,6 @@ export const loginUser = async (user) => {
     const response = await UserInstance.post(`/login`, user);
     const loggedinUser = await response?.data;
     if (loggedinUser) {
-      console.log(loggedinUser);
       toast.success("Loggedin Successfully");
       return loggedinUser;
     }
@@ -40,63 +39,67 @@ export const loginUser = async (user) => {
   }
 };
 
-export const updateUser = async (user, key) => {
-  try {
-    const response = await axios.put(`${APIS.USERS_API}/${user.id}`, user);
-    const updatedUser = await response?.data;
 
-    if (updatedUser) {
-      if (key === "role") {
-        toast.success(`Now ${user.firstName} is ${updatedUser.role}`);
-        return true;
-      } else if (key === "status") {
-        toast.success(
-          `Now ${user.firstName} is ${
-            updatedUser.active ? "Active" : "Inactive"
-          }`
-        );
-        return true;
-      } else {
-        toast.success("Profile Updated Successfully");
+export const changeRole = async (user) => {
+  try {
+    if (token) {
+      const response = await AuthUserInstance.patch(`/change`, user);
+      const updatedUser = await response?.data;
+
+      if (updatedUser) {
+        toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.role}`);
         return true;
       }
     }
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error?.response?.data?.msg);
   }
-  // try {
-  //   const response = await axios.put(`${APIS.USERS_API}/${user.id}`, user);
-  //   const updatedUser = await response?.data;
-
-  //   if (updatedUser) {
-  //     if (key === "role") {
-  //       toast.success(`Now ${user.firstName} is ${updatedUser.role}`);
-  //       return true;
-  //     } else if (key === "status") {
-  //       toast.success(
-  //         `Now ${user.firstName} is ${
-  //           updatedUser.active ? "Active" : "Inactive"
-  //         }`
-  //       );
-  //       return true;
-  //     } else {
-  //       toast.success("Profile Updated Successfully");
-  //       return true;
-  //     }
-  //   }
-  // } catch (error) {
-  //   toast.error(error.message);
-  // }
 };
+
+export const changeStatus = async (user) => {
+  try {
+    if (token) {
+      const response = await AuthUserInstance.patch(`/change`, user);
+      const updatedUser = await response?.data;
+
+      if (updatedUser) {
+        toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.active ? "Active" : "Inactive"}`);
+        return true;
+      }
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+};
+
+
+export const updateUserProfile = async (user) => {
+  try {
+    if (token) {
+      const response = await AuthUserInstance.patch(`/update`, user);
+      const updatedUser = await response?.data;
+
+      if (updatedUser) {
+        toast.success("Profile Updated Successfully");
+        return updatedUser?.data;
+      }
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+};
+
 
 export const deleteUser = async (user) => {
   try {
-    const response = await axios.delete(`${APIS.USERS_API}/${user.id}`);
+    if (token) {
+      const response = await AuthUserInstance.delete(`/delete/${user?._id}`);
 
-    if (response.status === 200) {
-      toast.success(`${user.firstName} Deleted Successfully`);
+      if (response.status === 200) {
+        toast.success(`${user?.firstName} Deleted Successfully`);
+      }
     }
   } catch (error) {
-    toast.error(error.message);
+    toast.error(error?.response?.data?.msg);
   }
 };

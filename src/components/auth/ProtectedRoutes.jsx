@@ -103,7 +103,8 @@ export const ProtectedUserRoute = (props) => {
 
     let token = JSON.parse(localStorage.getItem("userData"))
 
-    if (token && token?.id !== parseInt(params.userId) ) {
+
+    if (token && token?._id !== params.userId ) {
       setIsCurrentUser(false);
       return navigate('/');
     }

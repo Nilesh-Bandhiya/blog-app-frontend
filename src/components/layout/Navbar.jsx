@@ -44,7 +44,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
 
   const token = JSON.parse(localStorage.getItem("userData"));
   const currentUser = token?.firstName;
-  const currentUserId = token?.id;
+  const currentUserId = token?._id;
   const isAdmin = token?.role === "admin";
 
   const [anchorElUser, setAnchorElUser] = useState(null);

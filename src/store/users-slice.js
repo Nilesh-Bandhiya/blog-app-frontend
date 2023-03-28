@@ -6,10 +6,12 @@ let token = JSON.parse(localStorage.getItem("token"));
 
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
   try {
-    const response = await axios.get(APIS.USERS_API, {
-      headers: { Authorization: "Bearer " + token },
-    });
-    return response?.data?.data;
+    if (token) {
+      const response = await axios.get(APIS.USERS_API, {
+        headers: { Authorization: "Bearer " + token },
+      });
+      return response?.data?.data;
+    }
   } catch (error) {
     toast.error(error?.response?.data?.msg);
   }

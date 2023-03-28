@@ -21,19 +21,19 @@ import { useDispatch } from "react-redux";
 import { getBlogs } from "../../store/blogs-slice";
 import { addBlog, updateBlog } from "../../services/api/blogsApi";
 
-const BlogDialog = ({ open, handleEditClose, formData, currentUserId }) => {
+const BlogDialog = ({ open, handleEditClose, formData }) => {
   const dispatch = useDispatch();
 
-  let { id, userId, image, title, author, category, description } = formData;
+  let { _id, image, title, author, category, description } = formData;
 
   const validation = yup.object().shape({
     title: yup.string().required("Title is Required"),
 
     author: yup.string().required("Author is Required"),
 
-    category: yup.string().required("Category is Required"),
-
     image: yup.string().required("Image is Required"),
+
+    category: yup.string().required("Category is Required"),
 
     description: yup
       .string()
@@ -45,13 +45,14 @@ const BlogDialog = ({ open, handleEditClose, formData, currentUserId }) => {
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validation),
   });
 
   useEffect(() => {
-    if (id) {
+    if (_id) {
       setValue(
         "title",
         title,
@@ -99,18 +100,16 @@ const BlogDialog = ({ open, handleEditClose, formData, currentUserId }) => {
         { shouldTouch: true }
       );
     }
-  }, [author, category, description, id, title, image, setValue]);
+  }, [author, category, description, _id, title, image, setValue]);
 
   const addBlogHandler = async (data) => {
-    // when new blog added we also save which admin add this blog
-    let newDataUpdate = { ...data, userId: userId, id: id };
-    let newData = { ...data, userId: currentUserId };
+    let newDataUpdate = { ...data, _id };
 
-    if (id) {
+    if (_id) {  
       await updateBlog(newDataUpdate);
       dispatch(getBlogs());
     } else {
-      await addBlog(newData);
+      await addBlog(data);
       dispatch(getBlogs());
     }
 
@@ -180,20 +179,22 @@ const BlogDialog = ({ open, handleEditClose, formData, currentUserId }) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl sx={{ minWidth: 270 }}>
-                    <InputLabel id="category-label">Category</InputLabel>
+                    <InputLabel id="category-label" sx={{color: errors.category ? "red" : ""}}>Category</InputLabel>
                     <Select
+                      required
                       labelId="category-label"
                       id="category"
                       {...register("category")}
                       error={errors.category ? true : false}
                       label="Category"
-                      value={category || "CS-IT"}
+                      name="category"
+                      value={watch("category")}
                     >
-                      <MenuItem value={'CS-IT'}>CS-IT</MenuItem>
-                      <MenuItem value={'Travel'}>Travel</MenuItem>
-                      <MenuItem value={'Food'}>Food</MenuItem>
+                      <MenuItem value={"CS-IT"}>CS-IT</MenuItem>
+                      <MenuItem value={"Travel"}>Travel</MenuItem>
+                      <MenuItem value={"Food"}>Food</MenuItem>
                     </Select>
-                    <FormHelperText>{errors.category?.message}</FormHelperText>
+                    <FormHelperText sx={{color :"red" }}>{errors.category?.message}</FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
@@ -241,10 +242,10 @@ const BlogDialog = ({ open, handleEditClose, formData, currentUserId }) => {
                 <Button
                   type="submit"
                   variant="contained"
-                  color={id ? "success" : "primary"}
+                  color={_id ? "success" : "primary"}
                   autoFocus
                 >
-                  {id ? "Update" : "Add"}
+                  {_id ? "Update" : "Add"}
                 </Button>
               </Box>
             </Box>
