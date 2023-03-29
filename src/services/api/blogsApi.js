@@ -19,7 +19,6 @@ export const addBlog = async (blog) => {
       }
     }
   } catch (error) {
-    console.error(error);
     toast.error(error?.response?.data?.msg);
   }
 };

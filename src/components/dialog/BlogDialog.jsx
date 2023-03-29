@@ -62,13 +62,13 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
   });
 
   useEffect(() => {
-    // debugger;
     if (_id) {
       reset(formData);
+    } else {
+      reset(defaultValue)
     }
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_id ]);
+  }, [_id]);
 
   const addBlogHandler = async (data) => {
 
@@ -152,7 +152,7 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                       error={errors.category ? true : false}
                       label="Category"
                       name="category"
-                      value={watch("category") || "CS-IT"}
+                      value={watch("category") || ""} 
                     >
                       <MenuItem value={"CS-IT"}>CS-IT</MenuItem>
                       <MenuItem value={"Travel"}>Travel</MenuItem>
