@@ -54,21 +54,13 @@ const UserDetail = () => {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(validation),
   });
 
   const updateUserHandler = async (data) => {
-    // let newData = {
-    //   // ...user,
-    //   firstName: data.firstName,
-    //   lastName: data.lastName,
-    //   phoneNumber: data.phoneNumber,
-    //   email: data.email,
-    // };
-
     const updatedUser = await updateUserProfile(data);
     if (updatedUser) {
       localStorage.setItem("userData", JSON.stringify(updatedUser));
@@ -78,31 +70,11 @@ const UserDetail = () => {
   };
 
   useEffect(() => {
-    setValue(
-      "firstName",
-      user?.firstName,
-      { shouldValidate: false },
-      { shouldTouch: true }
-    );
-    setValue(
-      "lastName",
-      user?.lastName,
-      { shouldValidate: false },
-      { shouldTouch: true }
-    );
-    setValue(
-      "phoneNumber",
-      user?.phoneNumber,
-      { shouldValidate: false },
-      { shouldTouch: true }
-    );
-    setValue(
-      "email",
-      user?.email,
-      { shouldValidate: false },
-      { shouldTouch: true }
-    );
-  }, [setValue, user]);
+    if (user) {
+      reset(user);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Container component="main" maxWidth="sm">

@@ -2,15 +2,21 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { APIS } from "../constants/constants";
-let token = JSON.parse(localStorage.getItem("token"));
+;
 
 export const getUsers = createAsyncThunk("users/getUsers", async () => {
+  const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
       const response = await axios.get(APIS.USERS_API, {
         headers: { Authorization: "Bearer " + token },
       });
-      return response?.data?.data;
+      const users = await response?.data?.data;
+      if (users.length > 0) {
+        return users;
+      } else {
+        toast.error("No Blogs Found");
+      }
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg);

@@ -83,8 +83,7 @@ const Blogs = () => {
   useEffect(() => {
     const getAdminBlog = async () => {
       if (location.pathname === "/myblogs") {
-        const myBlogs = await getMyBlogs();
-        setBlogsData(myBlogs);
+        setBlogsData(await getMyBlogs());
       } else {
         setBlogsData(blogs);
       }
@@ -177,7 +176,7 @@ const Blogs = () => {
   );
 
   const filterHandler = (data) => {
-    if (data !== undefined ) {
+    if (data !== undefined) {
       return data?.filter((blog) =>
         filterKeys.some((key) =>
           blog[key].toLowerCase().includes(search.toLowerCase())
@@ -187,8 +186,10 @@ const Blogs = () => {
   };
 
   useEffect(() => {
-    dispatch(getBlogs());
-  }, [dispatch]);
+    if (location.pathname !== "/myblogs") {
+      dispatch(getBlogs());
+    }
+  }, [dispatch, location.pathname]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>

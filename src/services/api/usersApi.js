@@ -2,16 +2,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { APIS } from "../../constants/constants";
 
-let token = JSON.parse(localStorage.getItem("token"))
-
 const UserInstance = axios.create({
   baseURL: APIS.USERS_API,
 });
 
-const AuthUserInstance = axios.create({
-  baseURL: APIS.USERS_API,
-  headers: { 'Authorization': 'Bearer ' + token }
-});
 
 export const registerUser = async (user) => {
   try {
@@ -41,9 +35,10 @@ export const loginUser = async (user) => {
 
 
 export const changeRole = async (user) => {
+  const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
-      const response = await AuthUserInstance.patch(`/change`, user);
+      const response = await UserInstance.patch(`/change`, user, { headers: { 'Authorization': 'Bearer ' + token } });
       const updatedUser = await response?.data;
 
       if (updatedUser) {
@@ -57,9 +52,10 @@ export const changeRole = async (user) => {
 };
 
 export const changeStatus = async (user) => {
+  const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
-      const response = await AuthUserInstance.patch(`/change`, user);
+      const response = await UserInstance.patch(`/change`, user, { headers: { 'Authorization': 'Bearer ' + token } });
       const updatedUser = await response?.data;
 
       if (updatedUser) {
@@ -74,9 +70,10 @@ export const changeStatus = async (user) => {
 
 
 export const updateUserProfile = async (user) => {
+  const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
-      const response = await AuthUserInstance.patch(`/update`, user);
+      const response = await UserInstance.patch(`/update`, user, { headers: { 'Authorization': 'Bearer ' + token } });
       const updatedUser = await response?.data;
 
       if (updatedUser) {
@@ -91,9 +88,10 @@ export const updateUserProfile = async (user) => {
 
 
 export const deleteUser = async (user) => {
+  const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
-      const response = await AuthUserInstance.delete(`/delete/${user?._id}`);
+      const response = await UserInstance.delete(`/delete/${user?._id}`, { headers: { 'Authorization': 'Bearer ' + token } });
 
       if (response.status === 200) {
         toast.success(`${user?.firstName} Deleted Successfully`);

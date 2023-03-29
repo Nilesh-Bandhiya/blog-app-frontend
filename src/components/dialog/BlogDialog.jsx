@@ -22,9 +22,19 @@ import { getBlogs } from "../../store/blogs-slice";
 import { addBlog, updateBlog } from "../../services/api/blogsApi";
 
 const BlogDialog = ({ open, handleEditClose, formData }) => {
+
   const dispatch = useDispatch();
 
-  let { _id, image, title, author, category, description } = formData;
+  const defaultValue = {
+    _id: null,
+    title: null,
+    author: null,
+    category: null,
+    image: null,
+    description: null,
+  };
+
+  let { _id } = formData;
 
   const validation = yup.object().shape({
     title: yup.string().required("Title is Required"),
@@ -44,7 +54,7 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
   const {
     register,
     handleSubmit,
-    setValue,
+    reset,
     watch,
     formState: { errors },
   } = useForm({
@@ -52,61 +62,19 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
   });
 
   useEffect(() => {
+    // debugger;
     if (_id) {
-      setValue(
-        "title",
-        title,
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-      setValue(
-        "author",
-        author,
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-      setValue(
-        "category",
-        category,
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-      setValue(
-        "image",
-        image,
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-      setValue(
-        "description",
-        description,
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-    } else {
-      setValue("title", "", { shouldValidate: false }, { shouldTouch: true });
-      setValue("author", "", { shouldValidate: false }, { shouldTouch: true });
-      setValue(
-        "category",
-        "",
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
-      setValue("image", "", { shouldValidate: false }, { shouldTouch: true });
-      setValue(
-        "description",
-        "",
-        { shouldValidate: false },
-        { shouldTouch: true }
-      );
+      reset(formData);
     }
-  }, [author, category, description, _id, title, image, setValue]);
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [_id ]);
 
   const addBlogHandler = async (data) => {
-    let newDataUpdate = { ...data, _id };
 
-    if (_id) {  
-      await updateBlog(newDataUpdate);
+    if (_id) {
+      const updatedData = { ...data, _id };
+      await updateBlog(updatedData);
       dispatch(getBlogs());
     } else {
       await addBlog(data);
@@ -114,16 +82,7 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
     }
 
     handleEditClose();
-    setValue("title", "", { shouldValidate: false }, { shouldTouch: true });
-    setValue("author", "", { shouldValidate: false }, { shouldTouch: true });
-    setValue("category", "", { shouldValidate: false }, { shouldTouch: true });
-    setValue("image", "", { shouldValidate: false }, { shouldTouch: true });
-    setValue(
-      "description",
-      "",
-      { shouldValidate: false },
-      { shouldTouch: true }
-    );
+    reset(defaultValue)
   };
 
   return (
@@ -179,7 +138,12 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                   <FormControl sx={{ minWidth: 270 }}>
-                    <InputLabel id="category-label" sx={{color: errors.category ? "red" : ""}}>Category</InputLabel>
+                    <InputLabel
+                      id="category-label"
+                      sx={{ color: errors.category ? "red" : "" }}
+                    >
+                      Category
+                    </InputLabel>
                     <Select
                       required
                       labelId="category-label"
@@ -188,13 +152,15 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                       error={errors.category ? true : false}
                       label="Category"
                       name="category"
-                      value={watch("category")}
+                      value={watch("category") || "CS-IT"}
                     >
                       <MenuItem value={"CS-IT"}>CS-IT</MenuItem>
                       <MenuItem value={"Travel"}>Travel</MenuItem>
                       <MenuItem value={"Food"}>Food</MenuItem>
                     </Select>
-                    <FormHelperText sx={{color :"red" }}>{errors.category?.message}</FormHelperText>
+                    <FormHelperText sx={{ color: "red" }}>
+                      {errors.category?.message}
+                    </FormHelperText>
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
