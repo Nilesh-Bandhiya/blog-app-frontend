@@ -157,11 +157,13 @@ const Users = () => {
   );
 
   const filterHandler = (data) => {
-    return data?.filter((user) =>
-      filterKeys.some((key) =>
-        user[key].toString().toLowerCase().includes(search.toLowerCase())
-      )
-    );
+    if (data !== undefined) {
+      return data?.filter((user) =>
+        filterKeys.some((key) =>
+          user[key].toString().toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
   };
 
   return (

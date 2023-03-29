@@ -83,14 +83,14 @@ const Blogs = () => {
   useEffect(() => {
     const getAdminBlog = async () => {
       if (location.pathname === "/myblogs") {
-        const myBlogs = await getMyBlogs(currentUserId);
+        const myBlogs = await getMyBlogs();
         setBlogsData(myBlogs);
-      } else {  
+      } else {
         setBlogsData(blogs);
       }
     };
     getAdminBlog();
-  }, [blogs, currentUserId, location.pathname]);
+  }, [blogs, location.pathname]);
 
   const handleEditOpen = (data) => {
     setFormData(data);
@@ -177,11 +177,13 @@ const Blogs = () => {
   );
 
   const filterHandler = (data) => {
-    return data?.filter((blog) =>
-      filterKeys.some((key) =>
-        blog[key].toLowerCase().includes(search.toLowerCase())
-      )
-    );
+    if (data !== undefined ) {
+      return data?.filter((blog) =>
+        filterKeys.some((key) =>
+          blog[key].toLowerCase().includes(search.toLowerCase())
+        )
+      );
+    }
   };
 
   useEffect(() => {
