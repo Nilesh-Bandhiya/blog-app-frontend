@@ -67,8 +67,8 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
     } else {
       reset(defaultValue)
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [_id]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps 
+  }, [_id, reset]);
 
   const addBlogHandler = async (data) => {
 
