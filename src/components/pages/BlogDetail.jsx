@@ -5,7 +5,7 @@ import { getBlogDetails } from "../../services/api/blogsApi";
 import PageNotFound from "./PageNotFound";
 
 const BlogDetail = () => {
-  const [blog, setBlog] = useState({});
+  const [blog, setBlog] = useState(null);
 
   const params = useParams();
 

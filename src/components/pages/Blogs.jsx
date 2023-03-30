@@ -48,11 +48,11 @@ const titleLinkHandler = ({ data, isLoggedIn }) => {
   return (
     <>
       {isLoggedIn ? (
-        <Link to={`/${data._id}`} className="link-blue">
-          {data.title}
+        <Link to={`/${data?._id}`} className="link-blue">
+          {data?.title}
         </Link>
       ) : (
-        <>{data.title}</>
+        <>{data?.title}</>
       )}
     </>
   );
@@ -74,10 +74,10 @@ const Blogs = () => {
   const blogs = useSelector((state) => state?.blog?.blogs);
 
   const [blogsData, setBlogsData] = useState(blogs);
-  const [editOpen, setEditOpen] = useState(false);
+  const [blogFormOpen, setBlogFormOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [formData, setFormData] = useState({});
-  const [data, setData] = useState({});
+  const [formData, setFormData] = useState(null);
+  const [data, setData] = useState(null);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
@@ -91,13 +91,24 @@ const Blogs = () => {
     getAdminBlog();
   }, [blogs, location.pathname]);
 
+  useEffect(() => {
+    if (location.pathname !== "/myblogs") {
+      dispatch(getBlogs());
+    }
+  }, [dispatch, location.pathname]);
+
   const handleEditOpen = (data) => {
     setFormData(data);
-    setEditOpen(true);
+    setBlogFormOpen(true);
   };
 
-  const handleEditClose = () => {
-    setEditOpen(false);
+  const handleBlogFormClose = () => {
+    setBlogFormOpen(false);
+    setFormData(null);
+  };
+
+  const handleAddOpen = () => {
+    setBlogFormOpen(true);
   };
 
   const handleDeleteOpen = (data) => {
@@ -107,6 +118,7 @@ const Blogs = () => {
 
   const handleDeleteClose = () => {
     setDeleteOpen(false);
+    setData(null);
   };
 
   const [columnDefs, setColumnDefs] = useState([
@@ -148,7 +160,13 @@ const Blogs = () => {
   useEffect(() => {
     if (!isAdmin) {
       setColumnDefs([
-        { field: "id", minWidth: 50, width: 60, maxWidth: 70 },
+        {
+          field: "Id",
+          minWidth: 50,
+          width: 60,
+          maxWidth: 70,
+          cellRenderer: idHandler,
+        },
         {
           field: "title",
           minWidth: 150,
@@ -176,20 +194,14 @@ const Blogs = () => {
   );
 
   const filterHandler = (data) => {
-    if (data !== undefined) {
+    if (data) {
       return data?.filter((blog) =>
         filterKeys.some((key) =>
-          blog[key].toLowerCase().includes(search.toLowerCase())
+          blog[key].toString().toLowerCase().includes(search.toLowerCase())
         )
-      );
+      );  
     }
   };
-
-  useEffect(() => {
-    if (location.pathname !== "/myblogs") {
-      dispatch(getBlogs());
-    }
-  }, [dispatch, location.pathname]);
 
   return (
     <div style={{ width: "100%", height: "100%" }}>
@@ -213,7 +225,7 @@ const Blogs = () => {
             sx={{ width: "50vw" }}
           />
           {isAdmin && (
-            <Button variant="contained" onClick={handleEditOpen}>
+            <Button variant="contained" onClick={handleAddOpen}>
               Add Blog
             </Button>
           )}
@@ -239,10 +251,9 @@ const Blogs = () => {
         </div>
       </div>
       <BlogDialog
-        open={editOpen}
+        open={blogFormOpen}
         formData={formData}
-        handleEditClose={handleEditClose}
-        currentUserId={currentUserId}
+        handleBlogFormClose={handleBlogFormClose}
       />
       <ConfirmationDialog
         open={deleteOpen}

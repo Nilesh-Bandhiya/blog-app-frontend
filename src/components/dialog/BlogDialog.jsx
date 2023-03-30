@@ -21,8 +21,7 @@ import { useDispatch } from "react-redux";
 import { getBlogs } from "../../store/blogs-slice";
 import { addBlog, updateBlog } from "../../services/api/blogsApi";
 
-const BlogDialog = ({ open, handleEditClose, formData }) => {
-
+const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   const dispatch = useDispatch();
 
   const defaultValue = {
@@ -33,8 +32,6 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
     image: null,
     description: null,
   };
-
-  let { _id } = formData;
 
   const validation = yup.object().shape({
     title: yup.string().required("Title is Required"),
@@ -62,18 +59,17 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
   });
 
   useEffect(() => {
-    if (_id) {
+    if (formData) {
       reset(formData);
     } else {
-      reset(defaultValue)
+      reset(defaultValue);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps 
-  }, [_id, reset]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [formData, reset]);
 
   const addBlogHandler = async (data) => {
-
-    if (_id) {
-      const updatedData = { ...data, _id };
+    if (formData) {
+      const updatedData = { ...data, _id: formData?._id };
       await updateBlog(updatedData);
       dispatch(getBlogs());
     } else {
@@ -81,15 +77,14 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
       dispatch(getBlogs());
     }
 
-    handleEditClose();
-    reset(defaultValue)
+    handleBlogFormClose();
   };
 
   return (
     <div>
       <Dialog
         open={open}
-        onClose={handleEditClose}
+        onClose={handleBlogFormClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -152,7 +147,7 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                       error={errors.category ? true : false}
                       label="Category"
                       name="category"
-                      value={watch("category") || ""} 
+                      value={watch("category") || ""}
                     >
                       <MenuItem value={"CS-IT"}>CS-IT</MenuItem>
                       <MenuItem value={"Travel"}>Travel</MenuItem>
@@ -200,7 +195,7 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                   type="button"
                   variant="outlined"
                   color="error"
-                  onClick={handleEditClose}
+                  onClick={handleBlogFormClose}
                   sx={{ marginRight: "10px" }}
                 >
                   Cancel
@@ -208,10 +203,10 @@ const BlogDialog = ({ open, handleEditClose, formData }) => {
                 <Button
                   type="submit"
                   variant="contained"
-                  color={_id ? "success" : "primary"}
+                  color={formData ? "success" : "primary"}
                   autoFocus
                 >
-                  {_id ? "Update" : "Add"}
+                  {formData ? "Update" : "Add"}
                 </Button>
               </Box>
             </Box>

@@ -71,11 +71,11 @@ const Users = () => {
 
   const [search, setSearch] = useState("");
   const [deleteOpen, setDeleteOpen] = useState(false);
-  const [deleteData, setDeleteData] = useState({});
+  const [deleteData, setDeleteData] = useState(null);
   const [roleOpen, setRoleOpen] = useState(false);
-  const [roleData, setRoleData] = useState({});
+  const [roleData, setRoleData] = useState(null);
   const [statusOpen, setStatusOpen] = useState(false);
-  const [statusData, setStatusData] = useState({});
+  const [statusData, setStatusData] = useState(null);
 
   const handleDeleteOpen = (data) => {
     setDeleteData(data);
@@ -84,6 +84,7 @@ const Users = () => {
 
   const handleDeleteClose = () => {
     setDeleteOpen(false);
+    setDeleteData(null);
   };
 
   const handleRoleOpen = (data) => {
@@ -93,6 +94,7 @@ const Users = () => {
 
   const handleRoleClose = () => {
     setRoleOpen(false);
+    setRoleData(null);
   };
 
   const handleStatusOpen = (data) => {
@@ -102,6 +104,7 @@ const Users = () => {
 
   const handleStatusClose = () => {
     setStatusOpen(false);
+    setStatusData(null);
   };
 
   useEffect(() => {
@@ -157,7 +160,7 @@ const Users = () => {
   );
 
   const filterHandler = (data) => {
-    if (data !== undefined) {
+    if (data) {
       return data?.filter((user) =>
         filterKeys.some((key) =>
           user[key].toString().toLowerCase().includes(search.toLowerCase())
