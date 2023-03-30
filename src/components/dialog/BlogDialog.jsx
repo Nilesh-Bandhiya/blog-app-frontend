@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -24,6 +24,8 @@ import { addBlog, updateBlog } from "../../services/api/blogsApi";
 const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   const dispatch = useDispatch();
 
+  const [uplodedImage, setUploadedImage] = useState()
+
   const defaultValue = {
     _id: null,
     title: null,
@@ -38,7 +40,7 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
 
     author: yup.string().required("Author is Required"),
 
-    image: yup.string().required("Image is Required"),
+    // image: yup.string().required("Image is Required"),
 
     category: yup.string().required("Category is Required"),
 
@@ -68,12 +70,23 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   }, [formData, reset]);
 
   const addBlogHandler = async (data) => {
+
+    const sendData = new FormData()
+    sendData.append("author", data?.author)
+    sendData.append("category", data?.category)
+    sendData.append("description", data?.description)
+    sendData.append("image", uplodedImage)
+    sendData.append("title", data?.title)
+
+    console.log("sendData", sendData);
+
+
     if (formData) {
       const updatedData = { ...data, _id: formData?._id };
       await updateBlog(updatedData);
       dispatch(getBlogs());
     } else {
-      await addBlog(data);
+      await addBlog(sendData);
       dispatch(getBlogs());
     }
 
@@ -159,7 +172,7 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  <TextField
+                  {/* <TextField
                     required
                     fullWidth
                     {...register("image")}
@@ -169,6 +182,14 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
                     label="Image"
                     name="image"
                     autoComplete="image"
+                  /> */}
+                  <input
+                    type="file"
+                    // {...register("image")}
+                    id="image"
+                    label="Image"
+                    name="image"
+                    onChange={(e) => setUploadedImage(e.target.files[0])}
                   />
                 </Grid>
                 <Grid item xs={12}>
