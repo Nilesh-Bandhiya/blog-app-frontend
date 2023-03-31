@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
@@ -24,8 +24,6 @@ import { addBlog, updateBlog } from "../../services/api/blogsApi";
 const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   const dispatch = useDispatch();
 
-  const [uplodedImage, setUploadedImage] = useState()
-
   const defaultValue = {
     _id: null,
     title: null,
@@ -40,7 +38,26 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
 
     author: yup.string().required("Author is Required"),
 
-    // image: yup.string().required("Image is Required"),
+    image: yup
+      .mixed()
+      .test("name", "Image is Required", (value) => {
+        return value && value[0]?.name && true;
+      })
+      .test("fileSize", "Max allowed size is 1MB", (value) => {
+        return value && value[0]?.size <= 1024000;
+      })
+      .test(
+        "type",
+        "Only the following formats are accepted: .jpeg, .jpg, .png,",
+        (value) => {
+          return (
+            value &&
+            (value[0]?.type === "image/jpeg" ||
+              value[0]?.type === "image/jpg" ||
+              value[0]?.type === "image/png")
+          );
+        }
+      ),
 
     category: yup.string().required("Category is Required"),
 
@@ -70,22 +87,27 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   }, [formData, reset]);
 
   const addBlogHandler = async (data) => {
+    console.log("ftdta", data);
+    debugger
 
-    const sendData = new FormData()
-    sendData.append("author", data?.author)
-    sendData.append("category", data?.category)
-    sendData.append("description", data?.description)
-    sendData.append("image", uplodedImage)
-    sendData.append("title", data?.title)
+    const sendData = new FormData();
+    sendData.append("author", data?.author);
+    sendData.append("category", data?.category);
+    sendData.append("description", data?.description);
+    sendData.append("image", data?.image[0]);
+    sendData.append("title", data?.title);
+    debugger
 
-    console.log("sendData", sendData);
-
+    console.log("send Data", sendData.values());
 
     if (formData) {
-      const updatedData = { ...data, _id: formData?._id };
-      await updateBlog(updatedData);
+      debugger
+      // const updatedData = { ...sendData, _id: formData?._id };
+      sendData.append("_id", data?._id)
+      await updateBlog(sendData);
       dispatch(getBlogs());
     } else {
+      debugger
       await addBlog(sendData);
       dispatch(getBlogs());
     }
@@ -172,24 +194,16 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
                   </FormControl>
                 </Grid>
                 <Grid item xs={12}>
-                  {/* <TextField
+                  <TextField
                     required
                     fullWidth
+                    autoFocus
+                    type="file"
                     {...register("image")}
                     error={errors.image ? true : false}
                     helperText={errors.image?.message}
                     id="image"
-                    label="Image"
                     name="image"
-                    autoComplete="image"
-                  /> */}
-                  <input
-                    type="file"
-                    // {...register("image")}
-                    id="image"
-                    label="Image"
-                    name="image"
-                    onChange={(e) => setUploadedImage(e.target.files[0])}
                   />
                 </Grid>
                 <Grid item xs={12}>

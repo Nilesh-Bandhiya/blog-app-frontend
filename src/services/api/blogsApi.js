@@ -7,6 +7,7 @@ const BlogInstance = axios.create({
 });
 
 export const addBlog = async (blog) => {
+  debugger
   const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
@@ -25,10 +26,15 @@ export const addBlog = async (blog) => {
 
 export const updateBlog = async (blog) => {
   const token = JSON.parse(localStorage.getItem("token"))
+  debugger
+
+  console.log("blog", blog?._id);
   try {
     if (token) {
-      const response = await BlogInstance.patch(`update/${blog?._id}`, blog, { headers : { 'Authorization': 'Bearer ' + token } });
+      const response = await BlogInstance.patch(`update/${blog.get("_id")}`, blog, { headers : { 'Authorization': 'Bearer ' + token } });
       const updatedBlog = await response?.data;
+
+      console.log("updated blog",updatedBlog);
 
       if (updatedBlog) {
         toast.success("Blog Updated Successfully");
@@ -36,6 +42,7 @@ export const updateBlog = async (blog) => {
       }
     }
   } catch (error) {
+    console.log(error);
     toast.error(error?.response?.data?.msg);
   }
 };

@@ -10,9 +10,9 @@ export const getBlogs = createAsyncThunk(
             const response = await axios.get(APIS.BLOGS_API);
             const blogs = await response?.data?.data;
             if (blogs?.length > 0) {
-              return blogs;
+                return blogs;
             } else {
-              toast.error("No Blogs Found");
+                toast.error("No Blogs Found");
             }
         } catch (error) {
             toast.error(error?.response?.data?.msg);
