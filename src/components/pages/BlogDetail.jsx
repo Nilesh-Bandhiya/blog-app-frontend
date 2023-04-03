@@ -21,7 +21,7 @@ const BlogDetail = () => {
       <section>
         <div className="blog-detail">
           <div className="blog">
-            <img className="blog-picture" src={blog?.image} alt={blog?.title} />
+            <img className="blog-picture" src={blog?.image} alt={blog?.title} height="300px" width="600px" />
             <div className="main-content">
               <h2 className="title">Title : {blog?.title}</h2>
               <h2 className="author">Author : {blog?.author}</h2>

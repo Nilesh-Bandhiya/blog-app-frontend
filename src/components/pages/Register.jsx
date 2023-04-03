@@ -16,24 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { registerUser } from "../../services/api/usersApi";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link className="footer-link" color="inherit" to="#">
-        Blog App
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
 const Register = () => {
   const navigate =  useNavigate()
 
@@ -227,7 +209,6 @@ const Register = () => {
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 2, mb: 1 }} />
       </Paper>
     </Container>
   );

@@ -10,6 +10,8 @@ import Login from '../pages/Login';
 import Register from '../pages/Register';
 import BlogDetail from '../pages/BlogDetail';
 import PageNotFound from '../pages/PageNotFound';
+import ForgotPassword from '../pages/ForgotPassword';
+import ResetPassword from '../pages/ResetPassword';
 
 const Router = () => {
 
@@ -26,6 +28,8 @@ const Router = () => {
             { path: "about", element: <About /> },
             { path: "signup", element: <ProtectedLogoutRoute><Register /></ProtectedLogoutRoute> },
             { path: "signin", element: <ProtectedLogoutRoute><Login /></ProtectedLogoutRoute> },
+            { path: "forgot-password", element: <ProtectedLogoutRoute><ForgotPassword /></ProtectedLogoutRoute> },
+            { path: "reset-password/:userId/:tokenId", element: <ResetPassword /> },
             { path: "*", element: <PageNotFound /> },
           ],
         },

@@ -19,26 +19,9 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../services/api/usersApi";
 
 
-const Copyright = (props) => {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link className="footer-link" color="inherit" to="#">
-        Blog App
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-};
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const validation = yup.object().shape({
     email: yup
@@ -60,18 +43,15 @@ const Login = () => {
     resolver: yupResolver(validation),
   });
 
-
   const loginHandler = async (data) => {
-
-    let loggedinUser = await loginUser(data)
+    const loggedinUser = await loginUser(data);
 
     if (loggedinUser) {
-      localStorage.setItem("userData", JSON.stringify(loggedinUser?.data))
-      localStorage.setItem("token", JSON.stringify(loggedinUser?.token))
-      navigate("/")
+      localStorage.setItem("userData", JSON.stringify(loggedinUser?.data));
+      localStorage.setItem("token", JSON.stringify(loggedinUser?.token));
+      navigate("/");
     }
-
-  }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -140,16 +120,27 @@ const Login = () => {
             >
               Sign In
             </Button>
-            <Grid container justifyContent="flex-end">
+            <Grid container>
+              <Grid item xs>
+                <Typography variant="body2">
+                  <Link
+                    className="forgot-link"
+                    to="/forgot-password"
+                  >
+                    {"Forgot password?"}
+                  </Link>
+                </Typography>
+              </Grid>
               <Grid item>
-                <Link className="forgot-link" to="/signup" variant="body2">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+                <Typography variant="body2">
+                  <Link className="forgot-link" to="/signup">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Typography>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 3, mb: 3 }} />
       </Paper>
     </Container>
   );

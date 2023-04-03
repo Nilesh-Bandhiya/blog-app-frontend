@@ -7,7 +7,6 @@ const BlogInstance = axios.create({
 });
 
 export const addBlog = async (blog) => {
-  debugger
   const token = JSON.parse(localStorage.getItem("token"))
   try {
     if (token) {
@@ -26,7 +25,6 @@ export const addBlog = async (blog) => {
 
 export const updateBlog = async (blog) => {
   const token = JSON.parse(localStorage.getItem("token"))
-  debugger
 
   console.log("blog", blog?._id);
   try {

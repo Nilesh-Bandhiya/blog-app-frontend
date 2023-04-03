@@ -101,3 +101,18 @@ export const deleteUser = async (user) => {
     toast.error(error?.response?.data?.msg);
   }
 };
+
+
+export const forgotPassword = async (user) => {
+  try {
+    const response = await UserInstance.post(`/forgot-password`, user);
+    const data = await response?.data;
+
+    if (data) {
+      toast.success(data?.msg);
+      return data;
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+}
