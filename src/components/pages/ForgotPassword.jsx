@@ -1,16 +1,23 @@
-import React from 'react'
-import { Avatar, Box, Button, Container, CssBaseline, Paper, TextField, Typography } from '@mui/material'
+import React from "react";
+import {
+  Avatar,
+  Box,
+  Button,
+  Container,
+  CssBaseline,
+  Paper,
+  TextField,
+  Typography,
+} from "@mui/material";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useNavigate } from 'react-router-dom';
-import { forgotPassword } from '../../services/api/usersApi';
-
+import { useNavigate } from "react-router-dom";
+import { forgotPassword } from "../../services/api/usersApi";
 
 const ForgotPassword = () => {
-
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const validation = yup.object().shape({
     email: yup
@@ -28,65 +35,65 @@ const ForgotPassword = () => {
   });
 
   const forgotPasswordHandler = async (data) => {
-    const forgotData = await forgotPassword(data);
-    console.log("forgot", forgotData);
+    await forgotPassword(data);
+    navigate("/signin");
   };
 
   return (
     <Container component="main" maxWidth="xs">
-    <CssBaseline />
-    <Paper
-      elevation={5}
-      sx={{
-        marginTop: 1,
-        padding: 2,
-      }}
-    >
-      <Box
+      <CssBaseline />
+      <Paper
+        elevation={5}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          marginTop: 1,
+          padding: 2,
         }}
       >
-        <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Forgot Password
-        </Typography>
         <Box
-          component="form"
-          onSubmit={handleSubmit(forgotPasswordHandler)}
-          noValidate
-          sx={{ mt: 1 }}
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
         >
-          <TextField
-            margin="normal"
-            required
-            fullWidth
-            {...register("email")}
-            error={errors.email ? true : false}
-            helperText={errors.email?.message}
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            sx={{ mt: 3, mb: 2 }}
+          <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Forgot Password
+          </Typography>
+          <Box
+            component="form"
+            onSubmit={handleSubmit(forgotPasswordHandler)}
+            noValidate
+            sx={{ mt: 1 }}
           >
-           Send Mail
-          </Button>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              {...register("email")}
+              error={errors.email ? true : false}
+              helperText={errors.email?.message}
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+              Send Mail
+            </Button>
+          </Box>
         </Box>
-      </Box>
-    </Paper>
-  </Container>
-  )
-}
+      </Paper>
+    </Container>
+  );
+};
 
-export default ForgotPassword
+export default ForgotPassword;

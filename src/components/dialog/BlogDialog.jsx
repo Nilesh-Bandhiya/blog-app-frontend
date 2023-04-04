@@ -87,7 +87,6 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   }, [formData, reset]);
 
   const addBlogHandler = async (data) => {
-
     const sendData = new FormData();
     sendData.append("author", data?.author);
     sendData.append("category", data?.category);
@@ -95,10 +94,8 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
     sendData.append("image", data?.image[0]);
     sendData.append("title", data?.title);
 
-    console.log("send Data", sendData.values());
-
     if (formData) {
-      sendData.append("_id", data?._id)
+      sendData.append("_id", data?._id);
       await updateBlog(sendData);
       dispatch(getBlogs());
     } else {

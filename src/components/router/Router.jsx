@@ -29,7 +29,7 @@ const Router = () => {
             { path: "signup", element: <ProtectedLogoutRoute><Register /></ProtectedLogoutRoute> },
             { path: "signin", element: <ProtectedLogoutRoute><Login /></ProtectedLogoutRoute> },
             { path: "forgot-password", element: <ProtectedLogoutRoute><ForgotPassword /></ProtectedLogoutRoute> },
-            { path: "reset-password/:userId/:tokenId", element: <ResetPassword /> },
+            { path: "reset-password/:tokenId", element: <ResetPassword /> },
             { path: "*", element: <PageNotFound /> },
           ],
         },

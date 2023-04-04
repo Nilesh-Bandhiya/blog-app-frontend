@@ -116,3 +116,30 @@ export const forgotPassword = async (user) => {
     toast.error(error?.response?.data?.msg);
   }
 }
+
+export const checkTokenExpiry = async (token) => {
+  try {
+    const response = await UserInstance.post(`/check-expiry/${token?.tokenId}`, );
+    const data = await response?.data;
+
+    if (data) {
+      return data.data;
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+}
+
+export const resetPassword = async (user) => {
+  try {
+    const response = await UserInstance.patch(`/reset-password/${user?.userId}`, user);
+    const data = await response?.data;
+
+    if (data) {
+      toast.success(data?.msg);
+      return true
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+}

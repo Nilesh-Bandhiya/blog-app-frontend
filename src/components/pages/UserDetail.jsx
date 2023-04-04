@@ -11,14 +11,11 @@ import Paper from "@mui/material/Paper";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { useDispatch } from "react-redux";
 import { IconButton } from "@mui/material";
 import BorderColorIcon from "@mui/icons-material/BorderColor";
 import { updateUserProfile } from "../../services/api/usersApi";
-import { getUsers } from "../../store/users-slice";
 
 const UserDetail = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [edit, setEdit] = useState(false);
@@ -64,9 +61,8 @@ const UserDetail = () => {
     const updatedUser = await updateUserProfile(data);
     if (updatedUser) {
       localStorage.setItem("userData", JSON.stringify(updatedUser));
-      navigate("/");
+      navigate("/users");
     }
-    dispatch(getUsers());
   };
 
   useEffect(() => {
