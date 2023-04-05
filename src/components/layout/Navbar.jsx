@@ -12,7 +12,7 @@ import { Box } from "@mui/system";
 import { styled } from "@mui/material/styles";
 import MuiAppBar from "@mui/material/AppBar";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { getBlogs } from "../../store/blogs-slice";
 import { toast } from "react-toastify";
@@ -75,7 +75,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
       <Toolbar>
         {isAdmin && (
           <IconButton
-            style={{ color: "white" }}
+            style={{ color: "white" }}  
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             sx={{ mr: 2, ...(open && { display: "none" }) }}
@@ -96,14 +96,15 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
         <Box sx={{ flexGrow: 1, display: "flex", marginLeft: "30px" }}>
           {pages.map((page) => (
             <Button key={page} sx={{ color: "white", display: "block" }}>
-              <Link
-                className="nav-link"
+              <NavLink
+                // className="nav-link"
+                style={({ isActive }) => ({ color: isActive ? '#8dc4fc' : 'white' , fontWeight: isActive ? 'bolder' : 'normal' , textDecoration: 'none'})}
                 to={`/${
                   page.toLowerCase() === "home" ? "" : page.toLowerCase()
                 }`}
               >
                 {page}
-              </Link>
+              </NavLink>
             </Button>
           ))}
         </Box>

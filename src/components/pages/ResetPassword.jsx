@@ -73,7 +73,7 @@ const ResetPassword = () => {
   return (
     <>
       {userId ? (
-        <Container component="main" maxWidth="xs">
+        <Container component="main" maxWidth="xs" style={{height: "80vh"}}>
           <CssBaseline />
           <Paper
             elevation={5}

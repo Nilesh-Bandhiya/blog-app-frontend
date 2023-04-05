@@ -25,7 +25,7 @@ const BlogDetail = () => {
             <div className="main-content">
               <h2 className="title">Title : {blog?.title}</h2>
               <h2 className="author">Author : {blog?.author}</h2>
-              <h3 className="category">Category : {blog?.category}</h3>
+              <h5 className="category">Category : {blog?.category}</h5>
             </div>
           </div>
           <p className="description">{blog?.description}</p>

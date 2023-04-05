@@ -52,7 +52,7 @@ const MainLayout = () => {
   return (
     <>
       <ToastContainer />
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex", backgroundColor: "#dadada" }}>
         <CssBaseline />
 
         <Navbar

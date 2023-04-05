@@ -114,6 +114,7 @@ const Users = () => {
   const [columnDefs] = useState([
     {
       field: "Id",
+      floatingFilter: false,
       minWidth: 50,
       width: 60,
       maxWidth: 70,
@@ -152,6 +153,7 @@ const Users = () => {
 
   const defaultColDef = useMemo(
     () => ({
+      floatingFilter: true,
       sortable: true,
       flex: 1,
       filter: true,
@@ -191,11 +193,11 @@ const Users = () => {
         />
       </div>
       <div
-        className="ag-theme-alpine"
+        className="ag-theme-alpine-dark"
         style={{
           margin: " 0 auto",
           boxSizing: "border-box",
-          height: "66vh",
+          height: "67vh",
           width: "83vw",
         }}
       >
@@ -205,7 +207,7 @@ const Users = () => {
           defaultColDef={defaultColDef}
           animateRows={true}
           pagination={true}
-          paginationPageSize={8}
+          paginationPageSize={7}
         />
       </div>
       <RoleChangeDialog

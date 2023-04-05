@@ -67,6 +67,19 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
       .min(10, "description must be at least 10 character"),
   });
 
+  const updateValidation = yup.object().shape({
+    title: yup.string().required("Title is Required"),
+
+    author: yup.string().required("Author is Required"),
+
+    category: yup.string().required("Category is Required"),
+
+    description: yup
+      .string()
+      .required("Category is Required")
+      .min(10, "description must be at least 10 character"),
+  });
+
   const {
     register,
     handleSubmit,
@@ -74,12 +87,31 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
     watch,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(validation),
+    resolver: yupResolver(formData ? updateValidation : validation),
   });
 
   useEffect(() => {
     if (formData) {
       reset(formData);
+      // const imageName = formData.image.substr(
+      //   formData.image.lastIndexOf("_") + 1
+      // );
+      // const imageName = formData.image.substr(
+      //   formData.image.lastIndexOf("/") + 1
+      // );
+      // const getImage = async () => {
+      //   const blogImage = await getBlogImage(imageName);
+      //   console.log("blogImage", typeof(blogImage));
+      //   if (blogImage) {
+      //     setValue(
+      //       "image",
+      //       blogImage,
+      //       { shouldValidate: false },
+      //       { shouldTouch: true }
+      //     );
+      //   }
+      // };
+      // getImage();
     } else {
       reset(defaultValue);
     }
@@ -184,7 +216,7 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
                     </FormHelperText>
                   </FormControl>
                 </Grid>
-                <Grid item xs={12}>
+                <Grid item xs={7}>
                   <TextField
                     required
                     fullWidth
@@ -197,6 +229,53 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
                     name="image"
                   />
                 </Grid>
+
+                <Grid
+                  item
+                  xs={5}
+                  sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    flexDirection: "column",
+                  }}
+                >
+                  {(watch("image")?.length > 0 || formData?.image) && (
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                      <img
+                        src={
+                          watch("image")?.length > 0
+                            ? URL.createObjectURL(watch("image")[0])
+                            : formData?.image
+                        }
+                        alt={
+                          watch("image")?.length > 0
+                            ? watch("image")[0]?.name
+                            : formData?.image?.substr(
+                                formData?.image?.lastIndexOf("_") + 1
+                              )
+                        }
+                        height={40}
+                        width={70}
+                      />
+                    </div>
+                  )}
+
+                  <label
+                    style={{
+                      fontSize:
+                        watch("image")?.length > 0 || formData?.image
+                          ? "14px"
+                          : "18px",
+                      fontWeight: "bold",
+                      margin: "0 auto",
+                    }}
+                  >
+                    {watch("image")?.length > 0 || formData?.image
+                      ? "For Change Image Choose Again"
+                      : "Upload Image"}
+                  </label>
+                </Grid>
+
                 <Grid item xs={12}>
                   <Textarea
                     required

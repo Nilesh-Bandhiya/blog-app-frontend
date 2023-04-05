@@ -72,6 +72,21 @@ export const getBlogDetails = async (blogId) => {
   }
 }
 
+export const getBlogImage = async (ImageName) => {
+  const token = JSON.parse(localStorage.getItem("token"))
+  try {
+    if (token) {
+      const response = await BlogInstance.get(`/getimage/${ImageName}`, { headers : { 'Authorization': 'Bearer ' + token } });
+      const blogImage = await response?.data;
+      if (blogImage) {
+        return blogImage;
+      }
+    }
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+}
+
 export const getMyBlogs = async () => {
   let token = JSON.parse(localStorage.getItem("token"))
   try {

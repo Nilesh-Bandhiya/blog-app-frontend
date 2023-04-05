@@ -8,7 +8,7 @@ const PageNotFound = () => {
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
-        height: "66vh"
+        height: "80vh"
       }}
     >
       <Typography variant="h1" sx={{ fontWeight:'bold' }}>
