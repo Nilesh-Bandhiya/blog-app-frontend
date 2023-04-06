@@ -32,7 +32,7 @@ const SideBar = ({ handleDrawerClose, open }) => {
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
-          backgroundColor:"black"
+          backgroundColor:"#1f2833"
         },
       }}
       variant="persistent"

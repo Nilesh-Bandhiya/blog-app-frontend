@@ -73,7 +73,7 @@ const UserDetail = () => {
   }, []);
 
   return (
-    <Container component="main" maxWidth="sm">
+    <Container component="main" maxWidth="sm" style={{height: "80vh"}}>
       <CssBaseline />
       <Paper
         elevation={5}

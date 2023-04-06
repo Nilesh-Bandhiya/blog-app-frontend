@@ -1,5 +1,21 @@
+/* body{
+  background-image: linear-gradient(to top left, #EDF1F4, #C3CBDC);
+  background-color: #D3D3D3 !important;
+  
+ } */
+
+ .loginbtn{
+  background-color: #66FCF1 !important;
+  text-decoration: none !important; 
+ }
+
+ .addbtn{
+  background-color:  #1f2833 !important;
+  color: #66FCF1 !important;
+ }
+
 .nav-link {
-  text-decoration: none !important;
+  text-decoration: none !important; 
   color: white !important;
 }
 
@@ -9,8 +25,9 @@
 }
 
 .link-blue {
-  text-decoration: none !important;
-  color: #8dc4fc !important;
+  /* text-decoration: none !important; */
+  color: #1e5057 !important;
+  font-weight: 700 !important;
 }
 
 .forgot-link {
@@ -24,5 +41,5 @@
 }
 
 .layout-color {
-  background-color: black !important ;
+  background-color: #1f2833 !important ;
 }

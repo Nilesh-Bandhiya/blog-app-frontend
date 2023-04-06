@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 const Footer = () => {
   return (
     <Box >
-      <AppBar position="static" sx={{backgroundColor:"black"}}>
+      <AppBar position="static" sx={{backgroundColor:"#1f2833"}}>
       <Typography
       variant="body2"
       color="text.light"

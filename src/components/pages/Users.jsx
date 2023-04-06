@@ -6,6 +6,7 @@ import { getUsers } from "../../store/users-slice";
 import ConfirmationDialog from "../dialog/ConfirmationDialog";
 import RoleChangeDialog from "../dialog/RoleChangeDialog";
 import StatusChangeDialog from "../dialog/StatusChangeDialog";
+import styled from "styled-components";
 
 const idHandler = (e) => {
   return <>{e?.node?.rowIndex + 1}</>;
@@ -192,24 +193,26 @@ const Users = () => {
           sx={{ width: "35vw" }}
         />
       </div>
-      <div
-        className="ag-theme-alpine-dark"
-        style={{
-          margin: " 0 auto",
-          boxSizing: "border-box",
-          height: "67vh",
-          width: "83vw",
-        }}
-      >
-        <AgGridReact
-          rowData={filterHandler(users)}
-          columnDefs={columnDefs}
-          defaultColDef={defaultColDef}
-          animateRows={true}
-          pagination={true}
-          paginationPageSize={7}
-        />
-      </div>
+      <Wrapper>
+        <div
+          className="ag-theme-alpine"
+          style={{
+            margin: " 0 auto",
+            boxSizing: "border-box",
+            height: "67vh",
+            width: "83vw",
+          }}
+        >
+          <AgGridReact
+            rowData={filterHandler(users)}
+            columnDefs={columnDefs}
+            defaultColDef={defaultColDef}
+            animateRows={true}
+            pagination={true}
+            paginationPageSize={7}
+          />
+        </div>
+      </Wrapper>
       <RoleChangeDialog
         open={roleOpen}
         handleClose={handleRoleClose}
@@ -228,5 +231,15 @@ const Users = () => {
     </div>
   );
 };
+
+const Wrapper = styled.section`
+  .ag-theme-alpine {
+    --ag-header-foreground-color: #66fcf1;
+    --ag-header-background-color: #1f2833;
+    --ag-odd-row-background-color: #9ab5b3;
+    --ag-foreground-color: #2c3531;
+    --ag-background-color: #eaf6f3;
+  }
+`;
 
 export default Users;

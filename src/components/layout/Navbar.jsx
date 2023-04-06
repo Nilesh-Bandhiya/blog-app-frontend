@@ -75,7 +75,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
       <Toolbar>
         {isAdmin && (
           <IconButton
-            style={{ color: "white" }}  
+            style={{ color: "#66FCF1" }}  
             aria-label="open drawer"
             onClick={handleDrawerOpen}
             sx={{ mr: 2, ...(open && { display: "none" }) }}
@@ -84,7 +84,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
           </IconButton>
         )}
         <img
-          src="../blog-logo.png"
+          src="../logo.png"
           alt=""
           height="35px"
           style={{ marginLeft: "20px", cursor: "pointer" }}
@@ -97,8 +97,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
           {pages.map((page) => (
             <Button key={page} sx={{ color: "white", display: "block" }}>
               <NavLink
-                // className="nav-link"
-                style={({ isActive }) => ({ color: isActive ? '#8dc4fc' : 'white' , fontWeight: isActive ? 'bolder' : 'normal' , textDecoration: 'none'})}
+                style={({ isActive }) => ({ color: isActive ? '#66FCF1' : 'white' , fontWeight: isActive ? 'bolder' : 'normal' , textDecoration: 'none'})}
                 to={`/${
                   page.toLowerCase() === "home" ? "" : page.toLowerCase()
                 }`}
@@ -114,12 +113,12 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
               <Avatar
                 alt={currentUser}
                 src="....."
-                style={{ color: "black" }}
+                style={{ color: "black", backgroundColor:"#eaf6f3" }}
               />
             </IconButton>
           ) : (
-            <Button variant="contained">
-              <Link to="/signin" className="nav-link">
+            <Button variant="contained" className="loginbtn">
+              <Link to="/signin" className="loginbtn">
                 Login
               </Link>
             </Button>

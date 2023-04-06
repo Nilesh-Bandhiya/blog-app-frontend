@@ -10,6 +10,7 @@ import { getMyBlogs } from "../../services/api/blogsApi";
 import { getBlogs } from "../../store/blogs-slice";
 import BlogDialog from "../dialog/BlogDialog";
 import ConfirmationDialog from "../dialog/ConfirmationDialog";
+import styled from "styled-components";
 
 const actionHandler = ({ handleDeleteOpen, handleEditOpen, data }) => {
   const editBlogHandler = () => {
@@ -204,7 +205,7 @@ const Blogs = () => {
         filterKeys.some((key) =>
           blog[key].toString().toLowerCase().includes(search.toLowerCase())
         )
-      );  
+      );
     }
   };
 
@@ -230,31 +231,33 @@ const Blogs = () => {
             sx={{ width: "50vw" }}
           />
           {isAdmin && (
-            <Button variant="contained" onClick={handleAddOpen}>
+            <Button variant="contained" onClick={handleAddOpen} className="addbtn" >
               Add Blog
             </Button>
           )}
         </div>
-
-        <div
-          className="ag-theme-alpine-dark"
-          style={{
-            margin: "0 auto",
-            boxSizing: "border-box",
-            height: "67vh",
-            width: "80vw",
-          }}
-        >
-          <AgGridReact
-            rowData={filterHandler(blogsData)}
-            columnDefs={columnDefs}
-            defaultColDef={defaultColDef}
-            animateRows={true}
-            pagination={true}
-            paginationPageSize={7}
-          />
-        </div>
+        <Wrapper>
+          <div
+            className="ag-theme-alpine"
+            style={{
+              margin: "0 auto",
+              boxSizing: "border-box",
+              height: "67vh",
+              width: "80vw",
+            }}
+          >
+            <AgGridReact
+              rowData={filterHandler(blogsData)}
+              columnDefs={columnDefs}
+              defaultColDef={defaultColDef}
+              animateRows={true}
+              pagination={true}
+              paginationPageSize={7}
+            />
+          </div>
+        </Wrapper>
       </div>
+
       <BlogDialog
         open={blogFormOpen}
         formData={formData}
@@ -268,5 +271,18 @@ const Blogs = () => {
     </div>
   );
 };
+
+const Wrapper = styled.section`
+  .ag-theme-alpine {
+    --ag-header-foreground-color: #66fcf1;
+    --ag-header-background-color: #1f2833;
+    --ag-odd-row-background-color: #9ab5b3;
+    --ag-foreground-color: #2c3531;
+    --ag-background-color: #eaf6f3;
+  }
+  .ag-theme-alpine .ag-icon-menu {
+      color: #66fcf1;
+  }
+`;
 
 export default Blogs;
