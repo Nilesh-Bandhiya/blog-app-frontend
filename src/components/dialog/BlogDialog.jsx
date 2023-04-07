@@ -93,25 +93,6 @@ const BlogDialog = ({ open, handleBlogFormClose, formData }) => {
   useEffect(() => {
     if (formData) {
       reset(formData);
-      // const imageName = formData.image.substr(
-      //   formData.image.lastIndexOf("_") + 1
-      // );
-      // const imageName = formData.image.substr(
-      //   formData.image.lastIndexOf("/") + 1
-      // );
-      // const getImage = async () => {
-      //   const blogImage = await getBlogImage(imageName);
-      //   console.log("blogImage", typeof(blogImage));
-      //   if (blogImage) {
-      //     setValue(
-      //       "image",
-      //       blogImage,
-      //       { shouldValidate: false },
-      //       { shouldTouch: true }
-      //     );
-      //   }
-      // };
-      // getImage();
     } else {
       reset(defaultValue);
     }
