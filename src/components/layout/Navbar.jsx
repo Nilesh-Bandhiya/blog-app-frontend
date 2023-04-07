@@ -113,7 +113,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
               <Avatar
                 alt={currentUser}
                 src="....."
-                style={{ color: "black", backgroundColor:"#eaf6f3" }}
+                style={{ color: "black", backgroundColor:"#66FCF1" }}
               />
             </IconButton>
           ) : (
