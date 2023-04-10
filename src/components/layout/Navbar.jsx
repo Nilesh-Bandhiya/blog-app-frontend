@@ -53,6 +53,10 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
     setAnchorElUser(event.currentTarget);
   };
 
+  const navBtnHandler = (path) => {
+     console.log("path", path);
+  }
+
   const handleCloseUserMenu = (key) => {
     if (key === "Logout") {
       handleDrawerClose();
@@ -95,7 +99,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
         />
         <Box sx={{ flexGrow: 1, display: "flex", marginLeft: "30px" }}>
           {pages.map((page) => (
-            <Button key={page} sx={{ color: "white", display: "block" }}>
+            <Button key={page} sx={{ color: "white", display: "block" }} onClick={() => navBtnHandler(page.toLowerCase())}>
               <NavLink
                 style={({ isActive }) => ({ color: isActive ? '#66FCF1' : 'white' , fontWeight: isActive ? 'bolder' : 'normal' , textDecoration: 'none'})}
                 to={`/${
@@ -112,7 +116,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
             <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
               <Avatar
                 alt={currentUser}
-                src="....."
+                src=".....  "
                 style={{ color: "black", backgroundColor:"#66FCF1" }}
               />
             </IconButton>
