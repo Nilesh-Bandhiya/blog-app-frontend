@@ -1,11 +1,6 @@
-import axios from "axios";
 import { toast } from "react-toastify";
-import { APIS } from "../../constants/constants";
-
-const UserInstance = axios.create({
-  baseURL: APIS.USERS_API,
-});
-
+import { getLocalRefreshToken } from "../getTokens";
+import { UserInstance } from "../axiosServices/axiosInterceptors";
 
 export const registerUser = async (user) => {
   try {
@@ -35,16 +30,13 @@ export const loginUser = async (user) => {
 
 
 export const changeRole = async (user) => {
-  const token = JSON.parse(localStorage.getItem("token"))
   try {
-    if (token) {
-      const response = await UserInstance.patch(`/change`, user, { headers: { 'Authorization': 'Bearer ' + token } });
-      const updatedUser = await response?.data;
+    const response = await UserInstance.patch(`/change`, user);
+    const updatedUser = await response?.data;
 
-      if (updatedUser) {
-        toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.role}`);
-        return true;
-      }
+    if (updatedUser) {
+      toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.role}`);
+      return true;
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -52,16 +44,13 @@ export const changeRole = async (user) => {
 };
 
 export const changeStatus = async (user) => {
-  const token = JSON.parse(localStorage.getItem("token"))
   try {
-    if (token) {
-      const response = await UserInstance.patch(`/change`, user, { headers: { 'Authorization': 'Bearer ' + token } });
-      const updatedUser = await response?.data;
+    const response = await UserInstance.patch(`/change`, user);
+    const updatedUser = await response?.data;
 
-      if (updatedUser) {
-        toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.active ? "Active" : "Inactive"}`);
-        return true;
-      }
+    if (updatedUser) {
+      toast.success(`Now ${updatedUser?.data?.firstName} is ${updatedUser?.data?.active ? "Active" : "Inactive"}`);
+      return true;
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -70,16 +59,13 @@ export const changeStatus = async (user) => {
 
 
 export const updateUserProfile = async (user) => {
-  const token = JSON.parse(localStorage.getItem("token"))
   try {
-    if (token) {
-      const response = await UserInstance.patch(`/update`, user, { headers: { 'Authorization': 'Bearer ' + token } });
-      const updatedUser = await response?.data;
+    const response = await UserInstance.patch(`/update`, user);
+    const updatedUser = await response?.data;
 
-      if (updatedUser) {
-        toast.success("Profile Updated Successfully");
-        return updatedUser?.data;
-      }
+    if (updatedUser) {
+      toast.success("Profile Updated Successfully");
+      return updatedUser?.data;
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -88,14 +74,11 @@ export const updateUserProfile = async (user) => {
 
 
 export const deleteUser = async (user) => {
-  const token = JSON.parse(localStorage.getItem("token"))
   try {
-    if (token) {
-      const response = await UserInstance.delete(`/delete/${user?._id}`, { headers: { 'Authorization': 'Bearer ' + token } });
+    const response = await UserInstance.delete(`/delete/${user?._id}`);
 
-      if (response.status === 200) {
-        toast.success(`${user?.firstName} Deleted Successfully`);
-      }
+    if (response.status === 200) {
+      toast.success(`${user?.firstName} Deleted Successfully`);
     }
   } catch (error) {
     toast.error(error?.response?.data?.msg);
@@ -119,7 +102,7 @@ export const forgotPassword = async (user) => {
 
 export const checkTokenExpiry = async (token) => {
   try {
-    const response = await UserInstance.post(`/check-expiry/${token?.tokenId}`, );
+    const response = await UserInstance.post(`/check-expiry/${token?.tokenId}`,);
     const data = await response?.data;
 
     if (data) {
@@ -143,3 +126,13 @@ export const resetPassword = async (user) => {
     toast.error(error?.response?.data?.msg);
   }
 }
+
+export const getRefreshToken = async () => {
+  try {
+    return await UserInstance.post("/refresh", {
+      refreshToken: getLocalRefreshToken(),
+    });
+  } catch (error) {
+    toast.error(error?.response?.data?.msg);
+  }
+};

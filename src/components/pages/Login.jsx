@@ -49,6 +49,7 @@ const Login = () => {
     if (loggedinUser) {
       localStorage.setItem("userData", JSON.stringify(loggedinUser?.data));
       localStorage.setItem("token", JSON.stringify(loggedinUser?.token));
+      localStorage.setItem("refreshToken", JSON.stringify(loggedinUser?.refreshToken));
       navigate("/");
     }
   };

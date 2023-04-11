@@ -53,16 +53,13 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
     setAnchorElUser(event.currentTarget);
   };
 
-  const navBtnHandler = (path) => {
-     console.log("path", path);
-  }
-
   const handleCloseUserMenu = (key) => {
     if (key === "Logout") {
       handleDrawerClose();
       toast.success("User Loggedout");
       localStorage.removeItem("userData");
       localStorage.removeItem("token");
+      localStorage.removeItem("refreshToken");
       dispatch(getBlogs());
       navigate("/");
     }
@@ -99,7 +96,7 @@ const Navbar = ({ handleDrawerOpen, open, handleDrawerClose }) => {
         />
         <Box sx={{ flexGrow: 1, display: "flex", marginLeft: "30px" }}>
           {pages.map((page) => (
-            <Button key={page} sx={{ color: "white", display: "block" }} onClick={() => navBtnHandler(page.toLowerCase())}>
+            <Button key={page} sx={{ color: "white", display: "block" }}>
               <NavLink
                 style={({ isActive }) => ({ color: isActive ? '#66FCF1' : 'white' , fontWeight: isActive ? 'bolder' : 'normal' , textDecoration: 'none'})}
                 to={`/${
