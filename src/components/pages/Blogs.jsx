@@ -11,6 +11,7 @@ import { getBlogs } from "../../store/blogs-slice";
 import BlogDialog from "../dialog/BlogDialog";
 import ConfirmationDialog from "../dialog/ConfirmationDialog";
 import styled from "styled-components";
+import { paginationPageSize } from "../../constants/constants";
 
 const actionHandler = ({ handleDeleteOpen, handleEditOpen, data }) => {
   const editBlogHandler = () => {
@@ -263,7 +264,8 @@ const Blogs = () => {
               defaultColDef={defaultColDef}
               animateRows={true}
               pagination={true}
-              paginationPageSize={7}
+              paginationPageSize={paginationPageSize}
+              // paginationAutoPageSize={true}
             />
           </div>
         </Wrapper>

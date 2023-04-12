@@ -4,3 +4,5 @@ export const APIS = {
     USERS_API: `${BLOG_APP_BASE_URL}/users`,
     BLOGS_API: `${BLOG_APP_BASE_URL}/blogs`
 };
+
+export const paginationPageSize = 7

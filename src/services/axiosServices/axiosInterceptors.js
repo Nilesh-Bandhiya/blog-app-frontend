@@ -28,7 +28,7 @@ UserInstance.interceptors.response.use(
         const originalConfig = err.config;
         if (err.response) {
             // Access Token was expired
-            if (err.response.status === 401 && !originalConfig._retry) {
+            if (err.response.status === 419 && !originalConfig._retry) {
                 originalConfig._retry = true;
 
                 try {
@@ -81,7 +81,7 @@ BlogInstance.interceptors.response.use(
         const originalConfig = err.config;
         if (err.response) {
             // Access Token was expired
-            if (err.response.status === 401 && !originalConfig._retry) {
+            if (err.response.status === 419 && !originalConfig._retry) {
                 originalConfig._retry = true;
 
                 try {
