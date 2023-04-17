@@ -129,7 +129,7 @@ const Users = () => {
       field: "status",
       sortable: false,
       filter: false,
-      maxWidth: 130,
+      maxWidth: 140,
       cellRenderer: statusHandler,
       cellRendererParams: {
         handleStatusOpen,
@@ -139,8 +139,8 @@ const Users = () => {
       field: "Actions",
       sortable: false,
       filter: false,
-      minWidth: 240,
-      maxWidth: 240,
+      minWidth: 250,
+      maxWidth: 250,
       cellRenderer: actionHandler,
       cellRendererParams: {
         handleDeleteOpen,
@@ -153,7 +153,6 @@ const Users = () => {
     () => ({
       floatingFilter: true,
       sortable: true,
-      minWidth: 150,
       filter: true,
     }),
     []

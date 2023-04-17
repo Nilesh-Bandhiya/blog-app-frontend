@@ -1,10 +1,11 @@
 import { toast } from "react-toastify";
 import { getLocalRefreshToken } from "../getTokens";
-import { UserInstance } from "../axiosServices/axiosInterceptors";
+import { axiosInstance } from "../axiosServices/axiosInterceptors";
+import { APIS } from "../../constants/constants";
 
 export const registerUser = async (user) => {
   try {
-    const response = await UserInstance.post(`/register`, user);
+    const response = await axiosInstance.post(`${APIS.USERS_API}/register`, user);
     const registeredUser = await response?.data;
     if (registeredUser) {
       toast.success(registeredUser?.msg);
@@ -17,7 +18,7 @@ export const registerUser = async (user) => {
 
 export const loginUser = async (user) => {
   try {
-    const response = await UserInstance.post(`/login`, user);
+    const response = await axiosInstance.post(`${APIS.USERS_API}/login`, user);
     const loggedinUser = await response?.data;
     if (loggedinUser) {
       toast.success("Loggedin Successfully");
@@ -31,7 +32,7 @@ export const loginUser = async (user) => {
 
 export const changeRole = async (user) => {
   try {
-    const response = await UserInstance.patch(`/change`, user);
+    const response = await axiosInstance.patch(`${APIS.USERS_API}/change`, user);
     const updatedUser = await response?.data;
 
     if (updatedUser) {
@@ -45,7 +46,7 @@ export const changeRole = async (user) => {
 
 export const changeStatus = async (user) => {
   try {
-    const response = await UserInstance.patch(`/change`, user);
+    const response = await axiosInstance.patch(`${APIS.USERS_API}/change`, user);
     const updatedUser = await response?.data;
 
     if (updatedUser) {
@@ -60,7 +61,7 @@ export const changeStatus = async (user) => {
 
 export const updateUserProfile = async (user) => {
   try {
-    const response = await UserInstance.patch(`/update`, user);
+    const response = await axiosInstance.patch(`${APIS.USERS_API}/update`, user);
     const updatedUser = await response?.data;
 
     if (updatedUser) {
@@ -75,7 +76,7 @@ export const updateUserProfile = async (user) => {
 
 export const deleteUser = async (user) => {
   try {
-    const response = await UserInstance.delete(`/delete/${user?._id}`);
+    const response = await axiosInstance.delete(`${APIS.USERS_API}/delete/${user?._id}`);
 
     if (response.status === 200) {
       toast.success(`${user?.firstName} Deleted Successfully`);
@@ -88,7 +89,7 @@ export const deleteUser = async (user) => {
 
 export const forgotPassword = async (user) => {
   try {
-    const response = await UserInstance.post(`/forgot-password`, user);
+    const response = await axiosInstance.post(`${APIS.USERS_API}/forgot-password`, user);
     const data = await response?.data;
 
     if (data) {
@@ -102,7 +103,7 @@ export const forgotPassword = async (user) => {
 
 export const checkTokenExpiry = async (token) => {
   try {
-    const response = await UserInstance.post(`/check-expiry/${token?.tokenId}`,);
+    const response = await axiosInstance.post(`${APIS.USERS_API}/check-expiry/${token?.tokenId}`,);
     const data = await response?.data;
 
     if (data) {
@@ -115,7 +116,7 @@ export const checkTokenExpiry = async (token) => {
 
 export const resetPassword = async (user) => {
   try {
-    const response = await UserInstance.patch(`/reset-password/${user?.userId}`, user);
+    const response = await axiosInstance.patch(`${APIS.USERS_API}/reset-password/${user?.userId}`, user);
     const data = await response?.data;
 
     if (data) {
@@ -129,7 +130,7 @@ export const resetPassword = async (user) => {
 
 export const getRefreshToken = async () => {
   try {
-    return await UserInstance.post("/refresh", {
+    return await axiosInstance.post(`${APIS.USERS_API}/refresh`, {
       refreshToken: getLocalRefreshToken(),
     });
   } catch (error) {

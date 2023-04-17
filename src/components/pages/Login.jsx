@@ -18,8 +18,6 @@ import * as yup from "yup";
 import { Link } from "react-router-dom";
 import { loginUser } from "../../services/api/usersApi";
 
-
-
 const Login = () => {
   const navigate = useNavigate();
 
@@ -49,13 +47,17 @@ const Login = () => {
     if (loggedinUser) {
       localStorage.setItem("userData", JSON.stringify(loggedinUser?.data));
       localStorage.setItem("token", JSON.stringify(loggedinUser?.token));
-      localStorage.setItem("refreshToken", JSON.stringify(loggedinUser?.refreshToken));
+      localStorage.setItem(
+        "refreshToken",
+        JSON.stringify(loggedinUser?.refreshToken)
+      );
+
       navigate("/");
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs" style={{height: "80vh"}}>
+    <Container component="main" maxWidth="xs" style={{ height: "80vh" }}>
       <CssBaseline />
       <Paper
         elevation={5}
@@ -124,10 +126,7 @@ const Login = () => {
             <Grid container>
               <Grid item xs>
                 <Typography variant="body2">
-                  <Link
-                    className="forgot-link"
-                    to="/forgot-password"
-                  >
+                  <Link className="forgot-link" to="/forgot-password">
                     {"Forgot password?"}
                   </Link>
                 </Typography>

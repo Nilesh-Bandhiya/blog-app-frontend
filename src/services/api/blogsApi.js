@@ -1,9 +1,10 @@
 import { toast } from "react-toastify";
-import { BlogInstance } from "../axiosServices/axiosInterceptors";
+import { axiosInstance } from "../axiosServices/axiosInterceptors";
+import { APIS } from "../../constants/constants";
 
 export const addBlog = async (blog) => {
   try {
-    const response = await BlogInstance.post(`/add`, blog);
+    const response = await axiosInstance.post(`${APIS.BLOGS_API}/add`, blog);
     const addedBlog = await response?.data;
 
     if (addedBlog) {
@@ -18,7 +19,7 @@ export const addBlog = async (blog) => {
 
 export const updateBlog = async (blog) => {
   try {
-    const response = await BlogInstance.patch(`update/${blog.get("_id")}`, blog);
+    const response = await axiosInstance.patch(`${APIS.BLOGS_API}/update/${blog.get("_id")}`, blog);
     const updatedBlog = await response?.data;
 
     if (updatedBlog) {
@@ -32,7 +33,7 @@ export const updateBlog = async (blog) => {
 
 export const deleteBlog = async (blog) => {
   try {
-    const response = await BlogInstance.delete(`delete/${blog?._id}`);
+    const response = await axiosInstance.delete(`${APIS.BLOGS_API}/delete/${blog?._id}`);
 
     if (response.status === 200) {
       toast.success(`${blog.title} Blog Deleted Successfully`);
@@ -44,7 +45,7 @@ export const deleteBlog = async (blog) => {
 
 export const getBlogDetails = async (blogId) => {
   try {
-    const response = await BlogInstance.get(`/${blogId}`);
+    const response = await axiosInstance.get(`${APIS.BLOGS_API}/${blogId}`);
     const blog = await response?.data;
     if (blog) {
       return blog?.data;
@@ -56,7 +57,7 @@ export const getBlogDetails = async (blogId) => {
 
 export const getBlogImage = async (ImageName) => {
   try {
-    const response = await BlogInstance.get(`/getimage/${ImageName}`);
+    const response = await axiosInstance.get(`${APIS.BLOGS_API}/getimage/${ImageName}`);
     const blogImage = await response?.data;
     if (blogImage) {
       return blogImage;
@@ -68,7 +69,7 @@ export const getBlogImage = async (ImageName) => {
 
 export const getMyBlogs = async () => {
   try {
-    const response = await BlogInstance.get(`/myblogs`);
+    const response = await axiosInstance.get(`${APIS.BLOGS_API}/myblogs`);
     const myBlogs = await response?.data?.data;
     if (myBlogs.length > 0) {
       return myBlogs;

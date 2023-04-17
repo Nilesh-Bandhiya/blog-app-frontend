@@ -11,7 +11,6 @@ import { getBlogs } from "../../store/blogs-slice";
 import BlogDialog from "../dialog/BlogDialog";
 import ConfirmationDialog from "../dialog/ConfirmationDialog";
 import styled from "styled-components";
-import { paginationPageSize } from "../../constants/constants";
 
 const actionHandler = ({ handleDeleteOpen, handleEditOpen, data }) => {
   const editBlogHandler = () => {
@@ -126,35 +125,29 @@ const Blogs = () => {
   const [columnDefs, setColumnDefs] = useState([
     {
       field: "Id",
-      maxWidth: 70,
       floatingFilter: false,
       filter: true,
+      maxWidth: 70,
       cellRenderer: idHandler,
     },
-
     {
       field: "title",
-      maxWidth: 230,
+      maxWidth: 250,
       cellRenderer: titleLinkHandler,
       cellRendererParams: {
         isLoggedIn: currentUserId,
       },
     },
-    { field: "description",
-     minWidth: 300  ,
-     maxWidth: 300,
-    },
-    { field: "author",  maxWidth: 180, },
+    { field: "description", minWidth: 300, maxWidth: 350 },
+    { field: "author"},
     {
       headerName: "Admin",
       field: "userId.firstName",
-      maxWidth: 150,
     },
-    { field: "category", maxWidth: 150, },
+    { field: "category" },
     {
       field: "Actions",
-      maxWidth: 150,
-      sortable: false,
+      sortable: false,  
       filter: false,
       cellRenderer: actionHandler,
       cellRendererParams: {
@@ -169,11 +162,12 @@ const Blogs = () => {
       setColumnDefs([
         {
           field: "Id",
+          maxWidth: 70,
           floatingFilter: false,
           filter: true,
-          maxWidth: 70,
           cellRenderer: idHandler,
         },
+
         {
           field: "title",
           maxWidth: 250,
@@ -182,17 +176,13 @@ const Blogs = () => {
             isLoggedIn: currentUserId,
           },
         },
-        { field: "description", 
-        minWidth: 300 ,
-        maxWidth: 370,
-      },
-        { field: "author",  maxWidth: 200,  },
+        { field: "description", minWidth: 300, maxWidth: 350 },
+        { field: "author" },
         {
           headerName: "Admin",
-          maxWidth: 200,
           field: "userId.firstName",
         },
-        { field: "category",  maxWidth: 200, },
+        { field: "category" },
       ]);
     }
   }, [isAdmin, currentUserId]);
@@ -202,7 +192,8 @@ const Blogs = () => {
       floatingFilter: true,
       sortable: true,
       filter: true,
-      minWidth: 150,
+      flex: 1,
+      minWidth: 180,
     }),
     []
   );
@@ -226,7 +217,7 @@ const Blogs = () => {
             justifyContent: "space-between",
             alignItems: "center",
             height: "4vw",
-            width: "80vw",
+            width: "83vw",
             margin: "0 auto",
           }}
         >
@@ -255,7 +246,7 @@ const Blogs = () => {
               margin: "0 auto",
               boxSizing: "border-box",
               height: "67vh",
-              width: "80vw",
+              width: "83vw",
             }}
           >
             <AgGridReact
@@ -264,8 +255,7 @@ const Blogs = () => {
               defaultColDef={defaultColDef}
               animateRows={true}
               pagination={true}
-              paginationPageSize={paginationPageSize}
-              // paginationAutoPageSize={true}
+              paginationAutoPageSize={true}
             />
           </div>
         </Wrapper>
