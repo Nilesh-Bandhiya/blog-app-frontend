@@ -117,6 +117,8 @@ const Users = () => {
     {
       field: "Id",
       floatingFilter: false,
+      sortable: false,
+      filter: false,
       maxWidth: 70,
       cellRenderer: idHandler,
     },
@@ -151,7 +153,6 @@ const Users = () => {
 
   const defaultColDef = useMemo(
     () => ({
-      floatingFilter: true,
       sortable: true,
       filter: true,
     }),

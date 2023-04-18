@@ -125,8 +125,8 @@ const Blogs = () => {
   const [columnDefs, setColumnDefs] = useState([
     {
       field: "Id",
-      floatingFilter: false,
-      filter: true,
+      filter: false,
+      sortable: false,
       maxWidth: 70,
       cellRenderer: idHandler,
     },
@@ -163,8 +163,8 @@ const Blogs = () => {
         {
           field: "Id",
           maxWidth: 70,
-          floatingFilter: false,
-          filter: true,
+          filter: false,
+          sortable: false,
           cellRenderer: idHandler,
         },
 
@@ -189,7 +189,6 @@ const Blogs = () => {
 
   const defaultColDef = useMemo(
     () => ({
-      floatingFilter: true,
       sortable: true,
       filter: true,
       flex: 1,
