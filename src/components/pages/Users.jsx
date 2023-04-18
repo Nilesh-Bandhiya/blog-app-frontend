@@ -7,7 +7,6 @@ import ConfirmationDialog from "../dialog/ConfirmationDialog";
 import RoleChangeDialog from "../dialog/RoleChangeDialog";
 import StatusChangeDialog from "../dialog/StatusChangeDialog";
 import styled from "styled-components";
-import { paginationPageSize } from "../../constants/constants";
 
 const idHandler = (e) => {
   return <>{e?.node?.rowIndex + 1}</>;
@@ -206,7 +205,7 @@ const Users = () => {
             defaultColDef={defaultColDef}
             animateRows={true}
             pagination={true}
-            paginationPageSize={paginationPageSize}
+            paginationAutoPageSize={true}
           />
         </div>
       </Wrapper>
