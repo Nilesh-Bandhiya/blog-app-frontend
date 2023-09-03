@@ -1,0 +1,12 @@
+web:
+  - buildCommand: npm run build
+    environment:
+      NODE_ENV: production
+    routes:
+      - path: "/*"
+        buildCommand: skip
+        cleanUrls: false
+        type: nuxt
+        redirects:
+          - from: "/about"
+            to: "/index.html"
