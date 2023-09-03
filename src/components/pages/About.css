@@ -16,7 +16,7 @@
 }
 
 .about {
-    width: 1130px;
+    width: 100vw;
     max-width: 85%;
     margin: 0 auto;
     display: flex;
@@ -47,3 +47,15 @@
     letter-spacing: 1px;
 }
 
+@media screen and (max-width: 800px) {
+   .about{
+    width: 100vw;
+    max-width: 85%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+   }
+  }
