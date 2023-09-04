@@ -11,8 +11,7 @@ const BlogDetail = () => {
 
   useEffect(() => {
     const getBlogDetail = async () => {
-      const blog = await getBlogDetails(params.blogId)
-      setBlog(blog);
+      setBlog(await getBlogDetails(params.blogId));
     };
     getBlogDetail();
   }, [params.blogId]);
@@ -20,21 +19,15 @@ const BlogDetail = () => {
   const blogDetails = (
     <div className="main-container">
       <section className="blog-detail">
-        <div className="blog">
-          <img
-            className="blog-picture"
-            src={blog?.image}
-            alt={blog?.title}
-            height="300px"
-            width="600px"
-          />
-          <div className="main-content">
-            <h2 className="title">Title : {blog?.title}</h2>
-            <h2 className="author">Author : {blog?.author}</h2>
-            <h5 className="category">Category : {blog?.category}</h5>
-          </div>
+        <div className="blog-picture-container">
+          <img className="blog-picture" src={blog?.image} alt={blog?.title} />
         </div>
-        <p className="description">{blog?.description}</p>
+        <div className="blog-content">
+          <h2 className="title">Title : {blog?.title}</h2>
+          <h2 className="author">Author : {blog?.author}</h2>
+          <h5 className="category">Category : {blog?.category}</h5>
+          <p className="description">{blog?.description}</p>
+        </div>
       </section>
     </div>
   );

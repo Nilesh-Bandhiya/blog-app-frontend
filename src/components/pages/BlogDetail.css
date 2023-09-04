@@ -7,7 +7,10 @@
 .main-container {
   margin: 0 auto;
   width: 85vw;
+  height: 84vh; /* Set the content height to 84vh */
   padding: 20px;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-detail {
@@ -19,27 +22,29 @@
   }
 }
 
-.blog {
+.blog-picture-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  flex-grow: 1;
 
   @media (min-width: 768px) {
-    flex-direction: row;
+    margin-bottom: 0;
   }
 }
 
 .blog-picture {
-  height: 300px;
-  width: 100%;
-  max-width: 600px;
-  margin-bottom: 20px;
+  max-width: 100%;
+  height: auto;
+  max-height: 300px;
 }
 
-.main-content {
-  flex-grow: 1;
+.blog-content {
   padding: 20px;
 
   @media (min-width: 768px) {
+    flex-grow: 2;
     padding: 0 20px;
   }
 }
