@@ -1,61 +1,75 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.about-us {
-    height: 90vh;
-    width: 100%;
-    padding: 90px 0;
+.about-container {
+  height: 84vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
 }
 
 .pic {
-    height: auto;
-    width: 302px;
+  max-width: 100%;
+  height: auto;
 }
 
-.about {
-    width: 100vw;
-    max-width: 85%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
+.about-image {
+  flex: 1;
+  text-align: center;
+  padding: 20px;
+  max-width: 100%; /* Ensure the container can adapt to smaller screens */
 }
 
-.text {
-    width: 540px;
+.about-text {
+  flex: 1;
+  text-align: left;
+  padding: 20px;
 }
 
 .text-h2 {
-    font-size: 90px;
-    font-weight: 600;
-    margin-bottom: 10px;
-
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 10px;
 }
 
 .text-h5 {
-    font-size: 22px;
-    font-weight: 500;
-    margin-bottom: 20px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 20px;
+  color: #333;
 }
 
 .text-p {
-    font-size: 18px;
-    line-height: 25px;
-    letter-spacing: 1px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #555;
 }
 
 @media screen and (max-width: 800px) {
-   .about{
-    width: 100vw;
-    max-width: 85%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .about-container {
     flex-direction: column;
-
-   }
+    text-align: center;
   }
+
+  .about-image,
+  .about-text {
+    flex: 1;
+    text-align: center;
+  }
+
+  .text-h2 {
+    font-size: 30px;
+  }
+
+  .text-h5 {
+    font-size: 16px;
+  }
+
+  .text-p {
+    font-size: 14px;
+  }
+}

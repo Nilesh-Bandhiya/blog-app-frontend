@@ -6,3 +6,5 @@ export const APIS = {
 };
 
 export const paginationPageSize = 7
+
+export const pages = ["Home", "About"];

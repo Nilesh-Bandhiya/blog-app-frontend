@@ -175,7 +175,7 @@ const Users = () => {
           display: "flex",
           justifyContent: "flex-start",
           alignItems: "center",
-          height: "4vw",
+          height: "8vh",
           width: "83vw",
           margin: "0 auto",
         }}

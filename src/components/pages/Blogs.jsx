@@ -215,7 +215,7 @@ const Blogs = () => {
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            height: "4vw",
+            height: "8vh",
             width: "83vw",
             margin: "0 auto",
           }}
