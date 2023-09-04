@@ -38,11 +38,6 @@ axiosInstance.interceptors.response.use(
           return axiosInstance(originalConfig);
         } catch (_error) {
           if (_error.response && _error.response.data) {
-            localStorage.removeItem("refreshToken");
-            localStorage.removeItem("userData");
-            localStorage.removeItem("token");
-            // eslint-disable-next-line no-restricted-globals
-            location.href = "/signin";
             return Promise.reject(_error.response.data);
           }
 
