@@ -24,7 +24,6 @@
 
 .blog-picture-container {
   display: flex;
-  width: 10vw;
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
@@ -37,8 +36,7 @@
 
 .blog-picture {
   max-width: 100%;
-  height: auto;
-  max-height: 300px;
+  max-height: 600px; /* Set a larger max-height for bigger devices */
 }
 
 .blog-content {
