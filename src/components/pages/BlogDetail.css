@@ -27,10 +27,11 @@
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  flex-grow: 1;
+  flex-grow: 2; /* Increase flex-grow for bigger devices */
 
   @media (min-width: 768px) {
     margin-bottom: 0;
+    flex-grow: 1; /* Decrease flex-grow for smaller devices */
   }
 }
 
@@ -41,9 +42,10 @@
 
 .blog-content {
   padding: 20px;
+  flex-grow: 1; /* Decrease flex-grow for bigger devices */
 
   @media (min-width: 768px) {
-    flex-grow: 2;
+    flex-grow: 2; /* Increase flex-grow for smaller devices */
     padding: 0 20px;
   }
 }
