@@ -1,73 +1,87 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-.main-container {
-  margin: 0 auto;
-  width: 85vw;
-  height: 84vh; /* Set the content height to 84vh */
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-}
-
 .blog-detail {
-  display: flex;
-  flex-direction: column;
-
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  padding: 20px;
+  max-width: 80vw;
+  margin: 0 auto;
 }
 
-.blog-picture-container {
+.blog-header {
   display: flex;
-  justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  flex-grow: 2; /* Increase flex-grow for bigger devices */
-
-  @media (min-width: 768px) {
-    margin-bottom: 0;
-    flex-grow: 1; /* Decrease flex-grow for smaller devices */
-  }
 }
 
-.blog-picture {
-  max-width: 100%;
-  max-height: 600px; /* Set a larger max-height for bigger devices */
+.blog-image {
+  max-width: 20vw;
+  height: auto;
+  object-fit: cover;
+  margin-right: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.blog-content {
-  padding: 20px;
-  flex-grow: 1; /* Decrease flex-grow for bigger devices */
-
-  @media (min-width: 768px) {
-    flex-grow: 2; /* Increase flex-grow for smaller devices */
-    padding: 0 20px;
-  }
+.blog-image-container {
+  flex-grow: 1;
+  text-align: center;
 }
 
-.title {
+.blog-info {
+  flex-grow: 1;
+}
+
+.blog-title {
   font-size: 24px;
-  font-weight: 600;
+  margin-bottom: 10px;
 }
 
-.author {
-  font-size: 24px;
-  font-weight: 600;
+.author-info {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.author-name {
+  font-weight: bold;
 }
 
 .category {
-  font-size: 18px;
+  display: inline-block;
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  font-size: 14px;
+  border-radius: 5px;
   margin-top: 10px;
 }
 
-.description {
-  font-size: 18px;
-  line-height: 25px;
-  letter-spacing: 1px;
-  margin-top: 20px;
+.blog-description {
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.space-div{
+  height: 8vh;
+}
+
+@media (max-width: 768px) {
+
+  .blog-header {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .blog-image-container,
+  .blog-info {
+    text-align: center;
+    margin: 10px 0;
+  }
+
+  .blog-image {
+    max-width: 100%;
+    margin-right: 0;
+  }
 }

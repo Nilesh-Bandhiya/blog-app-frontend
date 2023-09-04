@@ -17,19 +17,22 @@ const BlogDetail = () => {
   }, [params.blogId]);
 
   const blogDetails = (
-    <div className="main-container">
-      <section className="blog-detail">
-        <div className="blog-picture-container">
-          <img className="blog-picture" src={blog?.image} alt={blog?.title} />
+    <>
+      <div className="blog-detail">
+        <div className="blog-header">
+          <div className="blog-image-container">
+            <img className="blog-image" src={blog?.image} alt={blog?.title} />
+          </div>
+          <div className="blog-info">
+            <h1 className="blog-title">{blog?.title}</h1>
+            <h4 className="author-name">{blog?.author}</h4>
+            <span className="category">{blog?.category}</span>
+          </div>
         </div>
-        <div className="blog-content">
-          <h2 className="title">Title : {blog?.title}</h2>
-          <h2 className="author">Author : {blog?.author}</h2>
-          <h5 className="category">Category : {blog?.category}</h5>
-          <p className="description">{blog?.description}</p>
-        </div>
-      </section>
-    </div>
+        <p className="blog-description">{blog?.description}</p>
+      </div>
+      <div className="space-div"></div>
+    </>
   );
 
   return <>{blog ? blogDetails : <PageNotFound />}</>;
